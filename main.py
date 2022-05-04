@@ -54,7 +54,7 @@ async def _help(ctx):
     await ctx.reply(embed = embed)
     embed = discord.Embed( title = '**Префиксы:**', description="`гб!`, `гборд!`, `гуглборд!`, `gb!`, `gboard!`, `googleboard!`", color=discord.Color.green())
     await ctx.send(embed = embed)
-    embed = discord.Embed( title = '**Команды:**', description="`хелп`/`помощь`/`help` - Показывает помощь\n\n`закрепить <текст фрагмента>`/`закреп <текст фрагмента>`/`pin <текст фрагмента>` - Закрепляет фрагмент с указанным текстом\n`открепить <номер фрагмента>`/`откреп <номер фрагмента>`/`unpin <номер фрагмента>` - Открепляет фрагмент под указанным номером\n`показать`/`фрагм`/`показатьфрагменты`/`show`/`showpins` - Показывает все закреплённые фрагменты\n\n`отправить <текст сообщения>`/`отправитьсообщение <текст сообщения>`/`отпр <текст сообщения>`/`send <текст сообщения>`/`sendmessage <текст сообщения>` - Отправляет сообщение от имени бота\n`анонотправить <текст сообщения>`/`анонотправитьсообщение <текст сообщения>`/`анонотпр <текст сообщения>`/`anonsend <текст сообщения>`/`anonsendmessage <текст сообщения>` - Отправляет сообщение от имени бота без указания вашего ника\n`сообщения <кол-во (необязательно)>`/`чат <кол-во (необязательно)>`/`messages <кол-во (необязательно)>`/`chat <кол-во (необязательно)>` - Показывает недавно отправленные сообщения\n`сообщение <номер сообщения>`/`показатьсообщение <номер сообщения>`/`сообщ <номер сообщения>`/`message <номер сообщения>`/`showmessage <номер сообщения>`/`msg <номер сообщения>` - Показывает информацию о выбранном сообщении\n`удалить <номер сообщения>`/`удалитьсообщение <номер сообщения>`/`удал <номер сообщения>`/`delete <номер сообщения>`/`deletemessage <номер сообщения>`/`del <номер сообщения>` - Удаляет сообщение из чата", color=discord.Color.green())
+    embed = discord.Embed( title = '**Команды:**', description="`хелп`/`помощь`/`help` - Показывает помощь\n\n`закрепить <текст фрагмента>`/`закреп <текст фрагмента>`/`pin <текст фрагмента>` - Закрепляет фрагмент с указанным текстом\n`открепить <номер фрагмента>`/`откреп <номер фрагмента>`/`unpin <номер фрагмента>` - Открепляет фрагмент под указанным номером\n`показать`/`фрагм`/`показатьфрагменты`/`show`/`showpins` - Показывает все закреплённые фрагменты\n\n`отправить <текст сообщения>`/`отправитьсообщение <текст сообщения>`/`отпр <текст сообщения>`/`send <текст сообщения>`/`sendmessage <текст сообщения>` - Отправляет сообщение от имени бота\n`анонотправить <текст сообщения>`/`анонотправитьсообщение <текст сообщения>`/`анонотпр <текст сообщения>`/`anonsend <текст сообщения>`/`anonsendmessage <текст сообщения>` - Отправляет сообщение от имени бота без указания вашего ника\n`сообщения <кол-во (необязательно)>`/`чат <кол-во (необязательно)>`/`messages <кол-во (необязательно)>`/`chat <кол-во (необязательно)>` - Показывает недавно отправленные сообщения\n`сообщение <номер сообщения>`/`показатьсообщение <номер сообщения>`/`сообщ <номер сообщения>`/`message <номер сообщения>`/`showmessage <номер сообщения>`/`msg <номер сообщения>` - Показывает информацию о выбранном сообщении", color=discord.Color.green())
     await ctx.send(embed = embed)
     embed = discord.Embed(title = '**Информация:**', description = '**Сайт:** https://sites.google.com/view/gboard-bot/main\n**Исходный код:** https://github.com/moontr3/gboard_bot\n**Создатель:** @moontr3',color=discord.Color.green())
     embed.set_author( name = "Бот: " + bot.user.name, icon_url = bot.user.avatar_url )
@@ -220,34 +220,6 @@ async def _showmsg(ctx, dur):
     embed.set_author( name = bot.user.name, icon_url = bot.user.avatar_url )
     embed.set_footer( text = ctx.author.name, icon_url = ctx.author.avatar_url)
     await ctx.send(embed = embed)  
-
-@bot.command(aliases=['удалить', 'удалитьсообщение', 'delete', 'deletemessage', 'удал', 'del'])
-async def _delmsg(ctx, idd):
-    ready = ''
-    with open('messages.txt', encoding='utf-8') as f:
-        count = sum(1 for _ in f)-1
-    with open('messages.txt', encoding='utf-8') as f:
-        line = f.readlines()
-        if int(idd) <= count:
-            ready += line[int(idd)]
-        else:
-            ready = f"Не удалось загрузить сообщение (всего сообщений: {count})."
-    if ready.startswith("**") and ready.split("** _(")[0].lstrip("**") == ctx.author.name:
-        with open ('messages.txt', 'r') as f:
-            old_data = f.read()
-
-        new_data = old_data.replace(line[int(idd)], '_Удалено_\n')
-
-        with open ('messages.txt', 'w') as f:
-            f.write(new_data)
-                
-        embed = discord.Embed( title = f'**Сообщение {idd} удалено!**', description=f"_Чтобы отправить сообщение, введите **гб!отправить <текст сообщения>**_", color=discord.Color.green())
-    else:
-        embed = discord.Embed( title = f'**Сообщение {idd} не удалено**', description=f"Вы не автор этого сообщения!\n_Чтобы отправить сообщение, введите **гб!отправить <текст сообщения>**_", color=discord.Color.green())
-    embed.set_author( name = bot.user.name, icon_url = bot.user.avatar_url )
-    embed.set_footer( text = ctx.author.name, icon_url = ctx.author.avatar_url)
-    await ctx.send(embed = embed)  
-    print(ready.split("** _(")[0].lstrip("**"))
 
 
 #  BOT INITIALIZATION  ###############################################################################################
