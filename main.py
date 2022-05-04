@@ -56,7 +56,7 @@ async def _help(ctx):
     await ctx.send(embed = embed)
     embed = discord.Embed( title = '**Команды:**', description="`хелп`/`помощь`/`help` - Показывает помощь\n\n`закрепить <текст фрагмента>`/`закреп <текст фрагмента>`/`pin <текст фрагмента>` - Закрепляет фрагмент с указанным текстом\n`открепить <номер фрагмента>`/`откреп <номер фрагмента>`/`unpin <номер фрагмента>` - Открепляет фрагмент под указанным номером\n`показать`/`фрагм`/`показатьфрагменты`/`show`/`showpins` - Показывает все закреплённые фрагменты\n\n`отправить <текст сообщения>`/`отправитьсообщение <текст сообщения>`/`отпр <текст сообщения>`/`send <текст сообщения>`/`sendmessage <текст сообщения>` - Отправляет сообщение от имени бота\n`анонотправить <текст сообщения>`/`анонотправитьсообщение <текст сообщения>`/`анонотпр <текст сообщения>`/`anonsend <текст сообщения>`/`anonsendmessage <текст сообщения>` - Отправляет сообщение от имени бота без указания вашего ника\n`сообщения <кол-во (необязательно)>`/`чат <кол-во (необязательно)>`/`messages <кол-во (необязательно)>`/`chat <кол-во (необязательно)>` - Показывает недавно отправленные сообщения\n`сообщение <номер сообщения>`/`показатьсообщение <номер сообщения>`/`сообщ <номер сообщения>`/`message <номер сообщения>`/`showmessage <номер сообщения>`/`msg <номер сообщения>` - Показывает информацию о выбранном сообщении\n`удалить <номер сообщения>`/`удалитьсообщение <номер сообщения>`/`удал <номер сообщения>`/`delete <номер сообщения>`/`deletemessage <номер сообщения>`/`del <номер сообщения>` - Удаляет сообщение из чата", color=discord.Color.green())
     await ctx.send(embed = embed)
-    embed = discord.Embed(color=discord.Color.green())
+    embed = discord.Embed(title = '**Информация:**', description = '**Сайт:** https://sites.google.com/view/gboard-bot/main\n**Исходный код:** https://github.com/moontr3/gboard_bot\n**Создатель:** @moontr3',color=discord.Color.green())
     embed.set_author( name = "Бот: " + bot.user.name, icon_url = bot.user.avatar_url )
     embed.set_footer( text = "Запросил: " + ctx.author.name, icon_url = ctx.author.avatar_url )
     await ctx.send(embed = embed)
@@ -253,3 +253,15 @@ async def _delmsg(ctx, idd):
 #  BOT INITIALIZATION  ###############################################################################################
 
 bot.run(token)
+
+
+###########################################
+#                                         #
+#       This bot made by @moontr3         #
+#  https://github.com/moontr3/gboard_bot  #
+#                                         #
+#    You CANNOT replace or remove this    #
+#    text if you want to use this bot     #
+#     if you didn't change the code!      #
+#                                         #
+###########################################
