@@ -29,7 +29,7 @@ async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name=f"M:{count2} | P:{count} | S:{str(len(bot.guilds))}"))
 
 @bot.event
-async def on_message():
+async def on_message(message):
     with open('pins.txt', encoding='utf-8') as f:
         count = sum(1 for i in f)
     with open('messages.txt', encoding='utf-8') as f:
