@@ -2,8 +2,6 @@
 
 #  MODULES / LIBRARIES  ##############################################################################################
 
-from asyncore import read
-from email.iterators import body_line_iterator
 import discord
 from discord.ext import commands
 import re
