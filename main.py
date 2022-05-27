@@ -17,13 +17,6 @@ bot.remove_command( 'help' )
 
 with open('token.txt', encoding='utf-8') as f:
     token = f.readline()
-    
-def update_presence():
-    with open('pins.txt', encoding='utf-8') as f:
-        count = sum(1 for i in f)
-    with open('messages.txt', encoding='utf-8') as f:
-        count2 = sum(1 for i in f) - 1
-    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name=f'M:{count2} | P:{count} | S:{len(bot.guilds)}'))
 
 
 #  BOT EVENTS  #######################################################################################################
@@ -31,7 +24,19 @@ def update_presence():
 @bot.event
 async def on_ready():
     print("Successfuly logged in as GBoard Bot!")
-    update_presence()
+    with open('pins.txt', encoding='utf-8') as f:
+        count = sum(1 for i in f)
+    with open('messages.txt', encoding='utf-8') as f:
+        count2 = sum(1 for i in f) - 1
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name=f"M:{count2} | P:{count} | S:{str(len(bot.guilds))}"))
+
+@bot.event
+async def on_message():
+    with open('pins.txt', encoding='utf-8') as f:
+        count = sum(1 for i in f)
+    with open('messages.txt', encoding='utf-8') as f:
+        count2 = sum(1 for i in f) - 1
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name=f"M:{count2} | P:{count} | S:{str(len(bot.guilds))}"))
 
 @bot.event
 async def on_command_error(ctx, error):
@@ -52,8 +57,7 @@ async def on_command_error(ctx, error):
         embed123.set_author( name = bot.user.name, icon_url = bot.user.avatar_url )
         embed123.set_footer( text = ctx.author.name, icon_url = ctx.author.avatar_url )
         await ctx.send(embed = embed123)
-        
-    update_presence()
+    
 
 
 #  BOT COMMANDS  #####################################################################################################
@@ -70,7 +74,6 @@ async def _help(ctx):
     embed.set_author( name = "Бот: " + bot.user.name, icon_url = bot.user.avatar_url )
     embed.set_footer( text = "Запросил: " + ctx.author.name, icon_url = ctx.author.avatar_url )
     await ctx.send(embed = embed)
-    update_presence()
 
 
 @bot.command(aliases=['pin', 'закрепить', 'закреп'])
@@ -104,7 +107,6 @@ async def _pin(ctx, *, text=None):
     embed.set_author( name = bot.user.name, icon_url = bot.user.avatar_url )
     embed.set_footer( text = ctx.author.name, icon_url = ctx.author.avatar_url )
     await ctx.reply(embed = embed)
-    update_presence()
 
 @bot.command(aliases=['unpin', 'открепить', 'откреп'])
 async def _unpin(ctx, number=None):
@@ -139,7 +141,6 @@ async def _unpin(ctx, number=None):
     embed.set_author( name = bot.user.name, icon_url = bot.user.avatar_url )
     embed.set_footer( text = ctx.author.name, icon_url = ctx.author.avatar_url )
     await ctx.reply(embed = embed)
-    update_presence()
 
 @bot.command(aliases=['show', 'показать', 'showpins', 'показатьфрагменты', 'фрагм'])
 async def _show(ctx):
@@ -178,7 +179,6 @@ async def _send(ctx, *, msg):
     embed.set_author( name = bot.user.name, icon_url = bot.user.avatar_url )
     embed.set_footer( text = "Отправитель: "+ctx.author.name, icon_url = ctx.author.avatar_url )
     await ctx.send(embed = embed)
-    update_presence()
 
 @bot.command(aliases=['анонотправить', 'анонотправитьсообщение', 'anonsend', 'anonsendmessage', 'анонотпр'])
 async def _anonsend(ctx, *, msg):
@@ -199,7 +199,6 @@ async def _anonsend(ctx, *, msg):
     embed.set_author( name = bot.user.name, icon_url = bot.user.avatar_url )
     embed.set_footer( text = "Анонимное сообщение")
     await ctx.send(embed = embed)
-    update_presence()
 
 @bot.command(aliases=['сообщения', 'messages', 'чат', 'chat'])
 async def _msghistory(ctx, dur = 15):
@@ -219,7 +218,6 @@ async def _msghistory(ctx, dur = 15):
     embed.set_author( name = bot.user.name, icon_url = bot.user.avatar_url )
     embed.set_footer( text = ctx.author.name, icon_url = ctx.author.avatar_url)
     await ctx.send(embed = embed)
-    update_presence()
 
 @bot.command(aliases=['сообщение', 'message', 'показатьсообщение', 'showmessage', 'сообщ', 'msg'])
 async def _showmsg(ctx, dur):
@@ -236,7 +234,6 @@ async def _showmsg(ctx, dur):
     embed.set_author( name = bot.user.name, icon_url = bot.user.avatar_url )
     embed.set_footer( text = ctx.author.name, icon_url = ctx.author.avatar_url)
     await ctx.send(embed = embed)
-    update_presence()
 
 
 #  BOT INITIALIZATION  ###############################################################################################
