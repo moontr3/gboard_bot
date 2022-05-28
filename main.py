@@ -30,6 +30,7 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
+    await bot.process_commands(message)
     with open('pins.txt', encoding='utf-8') as f:
         count = sum(1 for i in f)
     with open('messages.txt', encoding='utf-8') as f:
